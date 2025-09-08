@@ -9,16 +9,23 @@ import { RouterModule } from '@angular/router';
 import { TableComponent } from '../screens/table/table.component';
 import { LoginComponent } from '../screens/login/login.component';
 import { AddAnimalsComponent } from '../screens/add-animals/add-animals.component';
+import { NavegationComponent } from 'src/screens/navegation/navegation.component';
+import { ConsumeComponent } from 'src/screens/consume/consume.component';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { WeatherComponent } from 'src/screens/weather/weather.component';
+import { StrangerComponent } from 'src/screens/stranger/stranger.component';
  
 
 @NgModule({
   declarations: [
+    LoginComponent,
     AppComponent,
     TableComponent,
- 
-    LoginComponent,
+    NavegationComponent,
       AddAnimalsComponent,
+      ConsumeComponent,
+      WeatherComponent,
+      StrangerComponent,
     
     
   ],

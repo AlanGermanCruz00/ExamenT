@@ -1,0 +1,38 @@
+<app-navegation></app-navegation>
+
+<h2 class="text-center mb-4 mt-4">{{dictionaryUtils.labels.weather}}</h2>
+<div class="p-3 mx-auto" style="height: 85vh; overflow-y: auto;" (scroll)="onScrollContainer($event)">
+
+  <div class="row">
+    <div class="col-md-3 mb-3" *ngFor="let news of climaList">
+      <img [src]="news.urlToImage || 'https://via.placeholder.com/300x200'" class="card-img-top" alt="{{news.title}}">
+      <div class="card-body">
+        <h6 class="card-title">{{ news.title }}</h6>
+        <p class="card-text">{{ news.description }}</p>
+        <div class="d-flex justify-content-center mt-2">
+          <button class="btn btn-sm btn-info " (click)="openModels(news, detailModal)">{{dictionaryUtils.actions.see}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center mt-3">
+    <div class="spinner-border text-primary"></div>
+  </div>
+</div>
+
+
+<ng-template #detailModal let-modal>
+  <div class="modal-dialog modal-dialog-centered">
+    <h5 class="modal-title">{{ selectedClima?.title }}</h5>
+  </div>
+  <div class="modal-body">
+    <img [src]="selectedClima?.urlToImage" class="img-fluid mb-3">
+    <p>{{ selectedClima?.content }}</p>
+    <p><strong>{{dictionaryUtils.messages.animalsAdd}}</strong> {{ selectedClima?.source?.name }}</p>
+    <p><strong>{{dictionaryUtils.messages.animalsAdd}}</strong> {{ selectedClima?.publishedAt | date:'medium' }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">{{dictionaryUtils.actions.close}}</button>
+  </div>
+</ng-template>

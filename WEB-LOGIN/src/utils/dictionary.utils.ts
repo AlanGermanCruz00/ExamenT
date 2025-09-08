@@ -1,6 +1,7 @@
 export default {
   version: 'v0.0.0',
   locale: 'es',
+
   labels: {
     name: 'Nombre',
     race: 'Raza',
@@ -16,6 +17,13 @@ export default {
     invalidEmail: 'Correo inválido',
     email: 'Correo',
     password: 'Contraseña',
+
+    animals: 'Tabla de Mascotas 🐕‍🦺',
+    consume: 'Lista de Pokemos 🐦‍🔥',
+    weather: 'Noticias del Clima 🌤️',
+    strager: 'Stranger ✖️',
+
+
   },
 
   actions: {
@@ -25,9 +33,15 @@ export default {
     Update: 'Actualizar',
     Add: 'Agregar',
     Back: 'Volver',
+    access: 'Acceso',
+    close: 'Cerrar',
+    see: 'Ver',
+    closeLogin: 'Cerrar Sesion',
+
   },
 
   messages: {
+
     obligatoryField: 'Campo obligatorio',
     invalidEmail: 'Correo inválido',
     theFieldCannotBeEmpty: 'El campo no puede estar vacío',
@@ -36,13 +50,13 @@ export default {
     invalidServe: 'Error del Servidor',
     invalidFrom: 'Formulario Incompleto',
 
-    AnimalsShow: 'Tabla de Mascotas',
+    animalsShow: 'Tabla de Mascotas',
     invalidAnimalsShow: 'Error al Consultar Tabla de Mascotas',
-    AnimalsAdd: 'Mascota Agregada',
+    animalsAdd: 'Mascota Agregada',
     invalidAnimalsAdd: 'Error al Agregar Mascota Agregada',
-    AnimalsUpdate: 'Mascota Actualizada',
+    animalsUpdate: 'Mascota Actualizada',
     invalidAnimalsUpdate: 'Error al Actualizar',
-    AnimalsDelete: 'Mascota Eliminada',
+    animalsDelete: 'Mascota Eliminada',
     invalidAnimalsDelete: 'Mascota No Eliminada',
 
   },

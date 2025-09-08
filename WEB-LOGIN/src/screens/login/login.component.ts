@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { SinginService } from 'src/services/singin.service';
 import dictionaryUtils from 'src/utils/dictionary.utils';
 
@@ -14,6 +13,7 @@ export class LoginComponent {
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email])
   passwordFormControl = new FormControl('', [Validators.required])
+   dictionaryUtils = dictionaryUtils
 
   loginForm = new FormGroup({
     email: this.emailFormControl,

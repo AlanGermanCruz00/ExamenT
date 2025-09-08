@@ -30,7 +30,7 @@ export class TableComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmitConsultar(): void {
-      this.showBootstrapToast(dictionaryUtils.messages.AnimalsShow, 'success');
+      this.showBootstrapToast(dictionaryUtils.messages.animalsShow, 'success');
     this.addService.showAnimals().then((res) => {
       this.tableData = Array.isArray(res.response) ? res.response : [res.response];
     }).catch(err => {
@@ -41,7 +41,7 @@ export class TableComponent implements OnInit {
 
   onSubmitDelete(id: number): void {
     console.log(id)
-   this.showBootstrapToast(dictionaryUtils.messages.AnimalsDelete, 'success');
+   this.showBootstrapToast(dictionaryUtils.messages.animalsDelete, 'success');
 
     this.addService.deleteAnimal(id).then((res) => {
       this.tableData = this.tableData.filter(row => row.id_animal !== id);
@@ -64,10 +64,10 @@ export class TableComponent implements OnInit {
     animlsFrom.result.then((res) => {
       if (res?.success) {
         this.onSubmitConsultar();
-         this.showBootstrapToast(dictionaryUtils.messages.AnimalsAdd , 'success');
+         this.showBootstrapToast(dictionaryUtils.messages.animalsAdd , 'success');
       } else if (res?.updated) {
         this.onSubmitConsultar();
-        this.showBootstrapToast(dictionaryUtils.messages.AnimalsUpdate, 'success')
+        this.showBootstrapToast(dictionaryUtils.messages.animalsUpdate, 'success')
       }
     });
 

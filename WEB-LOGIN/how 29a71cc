@@ -1,0 +1,16 @@
+[33mcommit 29a71cc49210701358d531191078007e3c3332e4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDev/ConsumoApi/AGC[m[33m, [m[1;31morigin/Dev/ConsumoApi/AGC[m[33m, [m[1;32mmain[m[33m)[m
+Author: AlanGermanCruz00 <alan.german.cascada@gmail.com>
+Date:   Fri Sep 5 17:38:08 2025 -0600
+
+    Medodo de Crud Y consumo de API completos
+
+src/screens/consume/consume.component.html
+src/screens/consume/consume.component.ts
+src/screens/navegation/navegation.component.html
+src/screens/navegation/navegation.component.ts
+src/screens/stranger/stranger.component.html
+src/screens/stranger/stranger.component.ts
+src/screens/weather/weather.component.html
+src/screens/weather/weather.component.ts
+src/services/pokeapi.service.ts
+src/services/weather.service.ts

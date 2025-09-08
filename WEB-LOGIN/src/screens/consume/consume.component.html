@@ -1,0 +1,44 @@
+<app-navegation></app-navegation>
+
+<h2 class="text-center mb-4 mt-4">{{dictionaryUtils.labels.consume}}</h2>
+<div class="p-3 mx-auto" style="height: 85vh; overflow-y: auto;" (scroll)="onScrollContainer($event)">
+  <div class="row">
+    <div class="col-md-3 col-sm-6 mb-4" *ngFor="let pokemon of pokemonList">
+      <div class="card mx-auto" style="width: 14rem;">
+        <img
+          [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + (pokemon.url.split('/')[6]) + '.png'"
+          class="card-img-top p-3" alt="{{pokemon.name}}">
+        <div class="card-body text-center">
+          <h6 class="card-title">{{ pokemon.name | titlecase }}</h6>
+          <button class="btn btn-sm btn-info"
+            (click)="openModels(pokemon.name, detailModal)">{{dictionaryUtils.actions.see}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div *ngIf="loading" class="text-center mt-3">
+    <div class="spinner-border text-primary"></div>
+  </div>
+</div>
+
+<ng-template #detailModal let-modal>
+  <div class="text-center p-4">
+    <h5 class="modal-title">{{ selectedPokemon?.name | uppercase }}</h5>
+  </div>
+  <div class="modal-body text-center" *ngIf="!loadingPokemon; else loader">
+    <img [src]="selectedPokemon?.sprites.front_default" alt="{{selectedPokemon?.name}}" class="mb-3">
+    <p><strong>{{dictionaryUtils.messages.animalsAdd}}</strong> {{ selectedPokemon?.height }} Mts</p>
+    <p><strong>{{dictionaryUtils.messages.animalsAdd}}</strong> {{ selectedPokemon?.weight }} Kg</p>
+  </div>
+
+  <ng-template #loader>
+    <div class="text-center p-4">
+      <div class="spinner-border text-primary"></div>
+    </div>
+  </ng-template>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">{{dictionaryUtils.actions.close}}</button>
+  </div>
+</ng-template>
