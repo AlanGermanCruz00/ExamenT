@@ -1,17 +1,17 @@
 import { Router } from "express";
 import userController from "../controllers/user.controller";
+
 class UserRoutes {
-    public router: Router = Router();
+  public router: Router = Router();
 
-    constructor() {this.config();}
-    config(): void {
+  constructor() {
+    this.config();
+  }
 
-        // this.router.post('/create', [], userController.create);
-        // this.router.get('/show', [], userController.show1);
-        // this.router.delete('/:id', [], userController.delete);
-        //ANIMALS 
-        this.router.post('/login', [], userController.singIn);
-    }
+  config(): void {
+    this.router.post('/login', userController.singIn);
+
+  }
 }
-const userRoutes = new UserRoutes();
-export default userRoutes.router;
+
+export default new UserRoutes().router;

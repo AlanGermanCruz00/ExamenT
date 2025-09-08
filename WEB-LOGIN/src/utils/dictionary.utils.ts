@@ -46,6 +46,7 @@ export default {
     invalidEmail: 'Correo inválido',
     theFieldCannotBeEmpty: 'El campo no puede estar vacío',
     invalidPassword: 'Contraseña Incorrecta',
+    successLogin:'Usuario Correcto',
     invalidUser: 'Usuario no encontrado',
     invalidServe: 'Error del Servidor',
     invalidFrom: 'Formulario Incompleto',

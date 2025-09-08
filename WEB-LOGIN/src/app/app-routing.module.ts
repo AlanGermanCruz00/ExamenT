@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
  
 import { TableComponent } from '../screens/table/table.component';
 import { LoginComponent } from '../screens/login/login.component';
@@ -12,10 +12,11 @@ import { StrangerComponent } from 'src/screens/stranger/stranger.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full' },
-  {  path: 'login', component: LoginComponent },
-{
+  { path: 'login', component: LoginComponent },
+  {
     path: 'animals',
-    children :[
+    canActivate: [AlwaysAuthGuard],  //⚡
+    children: [
       { path: 'table', component: TableComponent },
       { path: 'animals', component: AddAnimalsComponent },
       { path: 'consume', component: ConsumeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'stranger', component: StrangerComponent }
     ]
   },
+  { path: '**', redirectTo: 'login' } //🚧-Login
 ];
 
 @NgModule({

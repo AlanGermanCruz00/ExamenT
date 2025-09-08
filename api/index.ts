@@ -8,6 +8,7 @@ import cors from 'cors';
 import dataBaseService from './services/data-base.service';
 import animalsRoutes from './routes/animals.route';
 
+
 class Api {
     public app: Application;
     
@@ -22,8 +23,7 @@ class Api {
         this.app.use(morgan('dev'));
 
         this.app.set('port', 3000);
-
-        // 📌 Habilitar CORS para Angular en localhost:4200
+ 
         this.app.use(cors({
             origin: "http://localhost:4200", // origen de tu frontend
             credentials: true
@@ -33,8 +33,8 @@ class Api {
     }
 
     routes(): void {
-        this.app.use("/test", testRoutes);
-        this.app.use("/acceso", testUsuario);
+        // this.app.use("/test", testRoutes);
+        // this.app.use("/acceso", testUsuario);
         this.app.use("/api/users", userRoute);
         this.app.use("/api/animals" , animalsRoutes);
 

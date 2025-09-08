@@ -6,6 +6,7 @@ import { AddAnimalsComponent } from '../add-animals/add-animals.component';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import dictionaryUtils from 'src/utils/dictionary.utils';
+import { SinginService } from '../../services/singin.service';
 
 @Component({
   selector: 'app-table',
@@ -22,55 +23,79 @@ export class TableComponent implements OnInit {
 
   deleteId = new FormControl('', [Validators.required]);
 
-  constructor(private addService: AddService,
+  constructor(
+    private addService: AddService,
     private router: Router,
-    private ngbModal: NgbModal
-  ) { }
+    private ngbModal: NgbModal,
+    private singinService: SinginService
 
-  ngOnInit(): void { }
+  ){}
+
+  ngOnInit(): void { 
+
+     if (!this.singinService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    }
+  }
+
+    private handleAuthError(err: any) {
+    if (err.status === 401) {
+      this.singinService.logout();
+      console.log('ERROR DE TOKEN')
+      this.router.navigate(['/login']);
+      return true;
+    }
+    return false;
+  }
+
+
 
   onSubmitConsultar(): void {
-      this.showBootstrapToast(dictionaryUtils.messages.animalsShow, 'success');
     this.addService.showAnimals().then((res) => {
       this.tableData = Array.isArray(res.response) ? res.response : [res.response];
+      this.showBootstrapToast(dictionaryUtils.messages.animalsShow, 'success');
     }).catch(err => {
-       this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsShow, 'danger')
-    });
-  }
-
-
-  onSubmitDelete(id: number): void {
-    console.log(id)
-   this.showBootstrapToast(dictionaryUtils.messages.animalsDelete, 'success');
-
-    this.addService.deleteAnimal(id).then((res) => {
-      this.tableData = this.tableData.filter(row => row.id_animal !== id);
-    }).catch(err => {
-       this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsDelete , 'danger');
-    });
-  }
-
-  onSubmitModels(actionFrom: 'create' | 'update', row?: any) {
-    const animlsFrom = this.ngbModal.open(AddAnimalsComponent, { size: 'lg', centered: true, backdrop: 'static', keyboard: false });
-    if (actionFrom === 'create') {
-      animlsFrom.componentInstance.actionType = 'create';
-
-    } else {
-      animlsFrom.componentInstance.actionType = 'update'; // console.log("Id A Actualizar: ", row?.id_animal);
-      animlsFrom.componentInstance.animalId = row.id_animal;
-      animlsFrom.componentInstance.AnimalsForm.patchValue(row);
-    }
-
-    animlsFrom.result.then((res) => {
-      if (res?.success) {
-        this.onSubmitConsultar();
-         this.showBootstrapToast(dictionaryUtils.messages.animalsAdd , 'success');
-      } else if (res?.updated) {
-        this.onSubmitConsultar();
-        this.showBootstrapToast(dictionaryUtils.messages.animalsUpdate, 'success')
+      if (!this.handleAuthError(err)) {
+        this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsShow, 'danger');
       }
     });
+  }
 
+ onSubmitDelete(id: number): void {
+    this.addService.deleteAnimal(id).then((res) => {
+      this.tableData = this.tableData.filter(row => row.id_animal !== id);
+      this.showBootstrapToast(dictionaryUtils.messages.animalsDelete || 'Mascota eliminada', 'success');
+    }).catch(err => {
+      if (!this.handleAuthError(err)) {
+        this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsDelete || 'Error al eliminar mascota', 'danger');
+      }
+    });
+  }
+ 
+  onSubmitModels(actionFrom: 'create' | 'update', row?: any) {
+    const animalsForm = this.ngbModal.open(AddAnimalsComponent, {
+      size: 'lg',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
+    });
+
+    if (actionFrom === 'create') {
+      animalsForm.componentInstance.actionType = 'create';
+    } else {
+      animalsForm.componentInstance.actionType = 'update';
+      animalsForm.componentInstance.animalId = row.id_animal;
+      animalsForm.componentInstance.AnimalsForm.patchValue(row);
+    }
+
+    animalsForm.result.then((res) => {
+      if (res?.success) {
+        this.onSubmitConsultar();
+        this.showBootstrapToast(dictionaryUtils.messages.animalsAdd || 'Mascota agregada', 'success');
+      } else if (res?.updated) {
+        this.onSubmitConsultar();
+        this.showBootstrapToast(dictionaryUtils.messages.animalsUpdate || 'Mascota actualizada', 'success');
+      }}).catch(() => {});
   }
 
   showBootstrapToast(message: string, type: 'success' | 'danger') {
