@@ -6,8 +6,6 @@ import dictionaryUtils from 'src/utils/dictionary.utils';
   templateUrl: './stranger.component.html',
 })
 export class StrangerComponent {
-
-  
-dictionaryUtils = dictionaryUtils
+  dictionaryUtils = dictionaryUtils
 
 }

@@ -12,13 +12,10 @@ class UserController {
         const descriptionIn = "user[signIn]";
         const { email, password } = req.body;
 
-        const userResult = await dataBaseService.pool?.query(
-            "CALL stp_sing_in(?,?)",
-            [email, password]
-        );
+        const userResult = await dataBaseService.pool?.query("CALL stp_sing_in(?,?)",[email, password]);
 
         const user = userResult ? userResult[0][0] : null;
-        const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: "2h" });
+        const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: "1d" });
 
         return res.json(utils.response(descriptionIn, { ...user, token }, false));
     }

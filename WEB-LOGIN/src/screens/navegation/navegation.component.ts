@@ -9,8 +9,9 @@ declare var bootstrap: any;
 })
 export class NavegationComponent {
   dictionaryUtils = dictionaryUtils
-  
+
   constructor(private router: Router) { }
+
 
   closeOffcanvas() {
     const offcanvasEl = document.getElementById('offcanvasMenu');
@@ -21,6 +22,7 @@ export class NavegationComponent {
   }
 
   navigate(route: string) { // const currentRoute = this.router.url;
+
 
     if (route === route) {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -33,9 +35,9 @@ export class NavegationComponent {
   }
 
   logout() {
-  
-  localStorage.clear();  
-  this.router.navigate(['/login']);   
-}
+
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 
 }

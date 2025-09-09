@@ -21,6 +21,8 @@ export class TableComponent implements OnInit {
   toastType: 'success' | 'danger' = 'success';
   dictionaryUtils = dictionaryUtils
 
+  private popStateListener!: () => void; // <-- declararla aquí
+
   deleteId = new FormControl('', [Validators.required]);
 
   constructor(
@@ -29,16 +31,24 @@ export class TableComponent implements OnInit {
     private ngbModal: NgbModal,
     private singinService: SinginService
 
-  ){}
+  ) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
 
-     if (!this.singinService.isAuthenticated()) {
+    if (!this.singinService.isAuthenticated()) {
       this.router.navigate(['/login']);
     }
+
+    this.popStateListener = () => { this.singinService.logout(); };
+    window.addEventListener('popstate', this.popStateListener);
+
   }
 
-    private handleAuthError(err: any) {
+  ngOnDestroy(): void {
+    window.removeEventListener('popstate', this.popStateListener);
+  }
+
+  private handleAuthError(err: any) {
     if (err.status === 401) {
       this.singinService.logout();
       console.log('ERROR DE TOKEN')
@@ -61,7 +71,7 @@ export class TableComponent implements OnInit {
     });
   }
 
- onSubmitDelete(id: number): void {
+  onSubmitDelete(id: number): void {
     this.addService.deleteAnimal(id).then((res) => {
       this.tableData = this.tableData.filter(row => row.id_animal !== id);
       this.showBootstrapToast(dictionaryUtils.messages.animalsDelete || 'Mascota eliminada', 'success');
@@ -71,13 +81,15 @@ export class TableComponent implements OnInit {
       }
     });
   }
- 
+
   onSubmitModels(actionFrom: 'create' | 'update', row?: any) {
+    this.onSubmitConsultar();
     const animalsForm = this.ngbModal.open(AddAnimalsComponent, {
       size: 'lg',
       centered: true,
       backdrop: 'static',
       keyboard: false
+
     });
 
     if (actionFrom === 'create') {
@@ -95,7 +107,8 @@ export class TableComponent implements OnInit {
       } else if (res?.updated) {
         this.onSubmitConsultar();
         this.showBootstrapToast(dictionaryUtils.messages.animalsUpdate || 'Mascota actualizada', 'success');
-      }}).catch(() => {});
+      }
+    }).catch(() => { });
   }
 
   showBootstrapToast(message: string, type: 'success' | 'danger') {

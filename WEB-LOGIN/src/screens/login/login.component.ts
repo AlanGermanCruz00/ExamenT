@@ -1,4 +1,4 @@
- import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SinginService } from 'src/services/singin.service';
@@ -14,7 +14,7 @@ export class LoginComponent {
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email])
   passwordFormControl = new FormControl('', [Validators.required])
-   dictionaryUtils = dictionaryUtils
+  dictionaryUtils = dictionaryUtils
 
   loginForm = new FormGroup({
     email: this.emailFormControl,
@@ -31,23 +31,23 @@ export class LoginComponent {
     private singinService: SinginService
   ) { }
 
-onSubmitl(): void {
-  const emailValue = this.emailFormControl.value!;
-  const passwordValue = this.passwordFormControl.value!;
+  onSubmitl(): void {
+    const emailValue = this.emailFormControl.value!;
+    const passwordValue = this.passwordFormControl.value!;
 
-  this.singinService.singIn(emailValue, passwordValue).then((res: any) => {
-             this.showBootstrapToast(dictionaryUtils.messages.successLogin, 'success');
+    this.singinService.singIn(emailValue, passwordValue).then((res: any) => {
+      this.showBootstrapToast(dictionaryUtils.messages.successLogin, 'success');
       this.router.navigate(['/animals/table']);
-    
+
     }).catch((err) => {
       if (err.status === 401) {
-               this.showBootstrapToast(dictionaryUtils.messages.invalidUser, 'danger');
+        this.showBootstrapToast(dictionaryUtils.messages.invalidUser, 'danger');
       } else {
-                this.showBootstrapToast(dictionaryUtils.messages.invalidServe, 'danger');
+        this.showBootstrapToast(dictionaryUtils.messages.invalidServe, 'danger');
       }
     });
-}
-  
+  }
+
   showBootstrapToast(message: string, type: 'success' | 'danger') {
     this.toastMessage = message;
     this.toastType = type;

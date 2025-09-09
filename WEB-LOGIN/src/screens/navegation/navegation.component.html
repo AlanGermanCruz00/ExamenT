@@ -2,21 +2,26 @@
   <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
     <span class="material-symbols-outlined">view_apps</span>
   </button>
- <button class="btn bg-dark text-white  ms-auto justify-content-center d-flex" type="button" (click)="logout()">
+  <button class="btn bg-dark text-white  ms-auto justify-content-center d-flex" type="button" (click)="logout()">
     <span class="material-symbols-outlined">cancel</span> {{dictionaryUtils.actions.closeLogin}} </button>
 </nav>
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu">
   <div class="offcanvas-header">
- 
+
   </div>
   <div class="offcanvas-body d-flex flex-column gap-3 position-relative">
-    <button class="btn btn-outline-secondary" (click)="navigate('/animals/table')">{{dictionaryUtils.labels.animals}}</button>
-    <button class="btn btn-outline-primary" (click)="navigate('/animals/consume')">{{dictionaryUtils.labels.consume}}</button>
-    <button class="btn btn-outline-info" (click)="navigate('/animals/weather')">{{dictionaryUtils.labels.weather}}</button>
-    <button class="btn btn-outline-info" (click)="navigate('/animals/stranger')">{{dictionaryUtils.labels.strager}}</button>
+    <button class="btn btn-outline-secondary"
+      (click)="navigate('/animals/table')">{{dictionaryUtils.labels.animals}}</button>
+    <button class="btn btn-outline-primary"
+      (click)="navigate('/animals/consume')">{{dictionaryUtils.labels.consume}}</button>
+    <button class="btn btn-outline-info"
+      (click)="navigate('/animals/weather')">{{dictionaryUtils.labels.weather}}</button>
+    <button class="btn btn-outline-info"
+      (click)="navigate('/animals/stranger')">{{dictionaryUtils.labels.strager}}</button>
 
-    <button class="btn btn-outline-dark position-absolute bottom-0 end-0 m-3" type="button" data-bs-dismiss="offcanvas">{{dictionaryUtils.actions.close}}</button>
+    <button class="btn btn-outline-dark position-absolute bottom-0 end-0 m-3" type="button"
+      data-bs-dismiss="offcanvas">{{dictionaryUtils.actions.close}}</button>
 
   </div>
 </div>
