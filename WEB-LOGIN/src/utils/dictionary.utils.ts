@@ -43,7 +43,7 @@ export default {
   messages: {
 
     obligatoryField: 'Campo obligatorio',
-    invalidEmail: 'Correo inválido',
+    invalidEmail: 'Correo inválido o Contraseña Incorrecta',
     theFieldCannotBeEmpty: 'El campo no puede estar vacío',
     invalidPassword: 'Contraseña Incorrecta',
     successLogin: 'Usuario Correcto',

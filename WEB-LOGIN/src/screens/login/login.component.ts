@@ -30,6 +30,7 @@ export class LoginComponent {
     private router: Router,
     private singinService: SinginService
   ) { }
+  
 
   onSubmitl(): void {
     const emailValue = this.emailFormControl.value!;
@@ -38,14 +39,15 @@ export class LoginComponent {
     this.singinService.singIn(emailValue, passwordValue).then((res: any) => {
       this.showBootstrapToast(dictionaryUtils.messages.successLogin, 'success');
       this.router.navigate(['/animals/table']);
-
-    }).catch((err) => {
-      if (err.status === 401) {
-        this.showBootstrapToast(dictionaryUtils.messages.invalidUser, 'danger');
-      } else {
-        this.showBootstrapToast(dictionaryUtils.messages.invalidServe, 'danger');
-      }
-    });
+    
+    }).catch((err: any) => {
+            if (err.status === 401) {
+                this.showBootstrapToast(dictionaryUtils.messages.invalidEmail, 'danger');
+            } else {
+                this.showBootstrapToast(dictionaryUtils.messages.invalidServe, 'danger');
+            }
+        });
+     
   }
 
   showBootstrapToast(message: string, type: 'success' | 'danger') {
