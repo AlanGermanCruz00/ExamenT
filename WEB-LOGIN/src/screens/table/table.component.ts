@@ -21,7 +21,7 @@ export class TableComponent implements OnInit {
   toastType: 'success' | 'danger' = 'success';
   dictionaryUtils = dictionaryUtils
 
-  private popStateListener!: () => void; // <-- declararla aquí
+ 
 
   deleteId = new FormControl('', [Validators.required]);
 
@@ -33,20 +33,7 @@ export class TableComponent implements OnInit {
 
   ) { }
 
-  ngOnInit(): void {
-
-    if (!this.singinService.isAuthenticated()) {
-      this.router.navigate(['/login']);
-    }
-
-    this.popStateListener = () => { this.singinService.logout(); };
-    window.addEventListener('popstate', this.popStateListener);
-
-  }
-
-  ngOnDestroy(): void {
-    window.removeEventListener('popstate', this.popStateListener);
-  }
+  ngOnInit(): void {}
 
   private handleAuthError(err: any) {
     if (err.status === 401) {

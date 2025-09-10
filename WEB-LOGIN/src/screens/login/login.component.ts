@@ -30,7 +30,16 @@ export class LoginComponent {
     private router: Router,
     private singinService: SinginService
   ) { }
-  
+
+  // canActivate(): boolean {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+       
+  //     this.router.navigate(['/animals/table']);
+  //     return false;
+  //   }
+  //   return true;  
+  // }
 
   onSubmitl(): void {
     const emailValue = this.emailFormControl.value!;

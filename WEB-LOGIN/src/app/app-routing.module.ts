@@ -8,11 +8,13 @@ import { AddAnimalsComponent } from 'src/screens/add-animals/add-animals.compone
 import { ConsumeComponent } from 'src/screens/consume/consume.component';
 import { WeatherComponent } from 'src/screens/weather/weather.component';
 import { StrangerComponent } from 'src/screens/stranger/stranger.component';
+import { LoginGuard } from './loginGuard';
+
 
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   {
     path: 'animals',
     canActivate: [AlwaysAuthGuard],  //⚡

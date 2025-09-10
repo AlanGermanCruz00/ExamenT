@@ -23,7 +23,6 @@ export class NavegationComponent {
 
   navigate(route: string) { // const currentRoute = this.router.url;
 
-
     if (route === route) {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate([route]);
