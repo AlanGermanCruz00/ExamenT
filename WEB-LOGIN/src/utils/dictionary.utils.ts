@@ -17,6 +17,10 @@ export default {
     invalidEmail: 'Correo inválido',
     email: 'Correo',
     password: 'Contraseña',
+    status: 'Estado',
+    path: 'Ruta',
+    type: 'Tipo',
+
 
     animals: 'Tabla de Mascotas 🐕‍🦺',
     consume: 'Lista de Pokemos 🐦‍🔥',
@@ -59,6 +63,13 @@ export default {
     invalidAnimalsUpdate: 'Error al Actualizar',
     animalsDelete: 'Mascota Eliminada',
     invalidAnimalsDelete: 'Mascota No Eliminada',
+
+    documentShow: 'Tabla de Documentos',
+    invalidDoumentShow: 'Error al Consultar Tabla de Documentos',
+    documentDelete: 'Documento Eliminado',
+    invalidDocumentDelete: 'Documento No Eliminada',
+    documentoUpdate: 'Archivo subido correctamente',
+   invalidDocumentUpdate: 'Error al subir archivo',
 
   },
 

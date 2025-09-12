@@ -1,17 +1,17 @@
 import express, { Application } from 'express';
 import bodyParser from 'body-parser';
-import testRoutes from './routes/test.route';
-import testUsuario from './routes/usuario.route';
 import userRoute from './routes/users.route';
 import morgan from 'morgan';
-import cors from 'cors';   
+import cors from 'cors';
 import dataBaseService from './services/data-base.service';
 import animalsRoutes from './routes/animals.route';
+import documentsRoutes from './routes/documents.route';
+import path from 'path';
 
 
 class Api {
     public app: Application;
-    
+
     constructor() {
         this.app = express();
         this.config();
@@ -23,12 +23,13 @@ class Api {
         this.app.use(morgan('dev'));
 
         this.app.set('port', 3000);
- 
+
         this.app.use(cors({
-            origin: "http://localhost:4200", // origen de tu frontend
+            origin: "http://localhost:4200",
             credentials: true
         }));
 
+        this.app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
         this.app.use(bodyParser.json());
     }
 
@@ -36,14 +37,13 @@ class Api {
         // this.app.use("/test", testRoutes);
         // this.app.use("/acceso", testUsuario);
         this.app.use("/api/users", userRoute);
-        this.app.use("/api/animals" , animalsRoutes);
+        this.app.use("/api/animals", animalsRoutes);
+        this.app.use("/api/documents", documentsRoutes)
 
     }
 
-    start(): void {
-        this.app.listen(this.app.get('port'), () => {
-            console.log('✅ Server on port', this.app.get('port'));
-        });
+    start(): void {this.app.listen(this.app.get('port'), () => {
+            console.log('✅ Server on port', this.app.get('port'));});
 
         dataBaseService.createConnections();
     }

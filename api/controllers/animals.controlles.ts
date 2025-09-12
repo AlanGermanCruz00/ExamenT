@@ -9,8 +9,7 @@ class ControllerAnimal {
   public async showAnimals(req: Request, res: Response) {
     const descriptionS = "animals[show]";
     try {
-      const rows: any = await dataBaseService.pool?.query(`
-              SELECT id_animal, name, race, size, color, yearborn, year, create_at FROM tbl_animals `);
+      const rows: any = await dataBaseService.pool?.query(`SELECT id_animal, name, race, size, color, yearborn, year, create_at FROM tbl_animals `);
       res.json(utils.response(descriptionS, rows, false));
     } catch (err) {
       res.status(500).json(utils.response(descriptionS, err, true));
@@ -22,7 +21,7 @@ class ControllerAnimal {
     const descriptionC = "animals[create]"
     const { name, race, size, color, yearborn, year } = req.body;
 
-    dataBaseService.pool?.query("CALL stp_S_animal(?,?,?,?,?,?)", [name, race, size, color, yearborn, year]).then((Anims) => {
+    dataBaseService.pool?.query('CALL stp_S_animal(?,?,?,?,?,?)', [name, race, size, color, yearborn, year]).then((Anims) => {
       const idAnimls = Anims[0][0].id
       res.json(utils.response(descriptionC, idAnimls, false))
 
@@ -37,7 +36,7 @@ class ControllerAnimal {
 
     try {
       dataBaseService.pool?.query(
-        "DELETE FROM tbl_animals WHERE id_animal = ?", [id]
+        'DELETE FROM tbl_animals WHERE id_animal = ?', [id]
 
       );
 

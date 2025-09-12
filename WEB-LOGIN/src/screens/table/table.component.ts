@@ -15,13 +15,14 @@ import { SinginService } from '../../services/singin.service';
 
 export class TableComponent implements OnInit {
   tableData: any[] = [];
+  loading: boolean = false;
 
   showToast = false;
   toastMessage = '';
   toastType: 'success' | 'danger' = 'success';
   dictionaryUtils = dictionaryUtils
+  private showDocumentToastOnce = true;
 
- 
 
   deleteId = new FormControl('', [Validators.required]);
 
@@ -33,7 +34,7 @@ export class TableComponent implements OnInit {
 
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   private handleAuthError(err: any) {
     if (err.status === 401) {
@@ -50,7 +51,10 @@ export class TableComponent implements OnInit {
   onSubmitConsultar(): void {
     this.addService.showAnimals().then((res) => {
       this.tableData = Array.isArray(res.response) ? res.response : [res.response];
-      this.showBootstrapToast(dictionaryUtils.messages.animalsShow, 'success');
+      if (this.showDocumentToastOnce) {
+        this.showBootstrapToast(dictionaryUtils.messages.animalsShow, 'success');
+        this.showDocumentToastOnce = false;
+      }
     }).catch(err => {
       if (!this.handleAuthError(err)) {
         this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsShow, 'danger');
@@ -96,6 +100,16 @@ export class TableComponent implements OnInit {
         this.showBootstrapToast(dictionaryUtils.messages.animalsUpdate || 'Mascota actualizada', 'success');
       }
     }).catch(() => { });
+  }
+
+  onScrollContainer(event: any): void {
+    const div = event.target;
+    const scrollPosition = div.scrollTop + div.clientHeight;
+    const threshold = div.scrollHeight - 100;
+
+    if (scrollPosition >= threshold && !this.loading) {
+      this.onSubmitConsultar();
+    }
   }
 
   showBootstrapToast(message: string, type: 'success' | 'danger') {
