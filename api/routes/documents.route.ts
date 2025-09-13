@@ -6,13 +6,15 @@ import path from "path";
 import multer from 'multer';
 
 
-const storage = multer.diskStorage({destination: (req, file, cb) => {cb(null, 'uploads/');},
-    filename: (req, file, cb) => {
-        const cleanName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, "_");
-        const savedFileName = Date.now() + "-" + cleanName;
-        (req as any).savedFileName = savedFileName;
-        cb(null, savedFileName);
-    }
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    const originalName = file.originalname;
+    (req as any).savedFileName = originalName;
+    cb(null, originalName);
+  }
 });
 
 export const upload = multer({ storage });

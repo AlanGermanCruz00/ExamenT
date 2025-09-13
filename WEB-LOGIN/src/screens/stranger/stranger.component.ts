@@ -74,32 +74,41 @@ export class StrangerComponent implements OnInit {
     this.documentsService.deleteDocumenst(id).then((res) => {
       this.tableData = this.tableData.filter((row) => row.id_doc !== id);
       this.showBootstrapToast(dictionaryUtils.messages.documentDelete, 'success');
+
     }).catch((err) => {
-      if (!this.handleAuthError(err)) { this.showBootstrapToast(dictionaryUtils.messages.invalidDocumentDelete, 'danger'); }
+      if (!this.handleAuthError(err)) {
+        this.showBootstrapToast(dictionaryUtils.messages.invalidDocumentDelete, 'danger');
+      }
     });
-    this.onSubmitConsultar()
   }
 
 
 
   onFileSelected(event: any): void { this.selectedFile = event.target.files[0]; }
 
-  onSubmitSubir(event: any) {
-    event.preventDefault();
+ onSubmitSubir(event: any) {
+  event.preventDefault();
 
-    const fileInput = event.target.querySelector('input[type="file"]');
-    if (!fileInput || !fileInput.files.length) return;
+  const fileInput = event.target.querySelector('input[type="file"]');
+  if (!fileInput || !fileInput.files.length) return;
 
-    const file = fileInput.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
+  const file = fileInput.files[0];
+  const formData = new FormData();
+  formData.append('file', file);
 
-    this.documentsService.uploadDocument(formData).then(res => {
+  this.documentsService.uploadDocument(formData).then(res => {
       this.showBootstrapToast(dictionaryUtils.messages.documentoUpdate, 'success');
       this.onSubmitConsultar();
-    }).catch(err => { this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsUpdate, 'danger'); });
+    }).catch(err => {
+   
+      if (err.status === 400) {
+        this.showBootstrapToast(dictionaryUtils.messages.invalidDocumentAdd, 'danger'); 
+      } else if (!this.handleAuthError(err)) {
+        this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsUpdate, 'danger');
+      }
+    });
+}
 
-  }
 
 
   onScrollContainer(event: any): void {

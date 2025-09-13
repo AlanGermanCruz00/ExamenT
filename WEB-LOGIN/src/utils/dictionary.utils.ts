@@ -70,6 +70,7 @@ export default {
     invalidDocumentDelete: 'Documento No Eliminada',
     documentoUpdate: 'Archivo subido correctamente',
    invalidDocumentUpdate: 'Error al subir archivo',
+   invalidDocumentAdd: 'Ya existe un documento con el nombre Cambia el nombre antes de subirlo.',
 
   },
 

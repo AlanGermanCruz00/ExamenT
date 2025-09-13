@@ -15,10 +15,10 @@
     <h2 class="text-center mb-4">{{dictionaryUtils.labels.strager}}</h2><br>
 
     <div class="d-flex justify-content-end">
-      <form class="d-flex align-items-center" (submit)="onSubmitSubir($event)">
-        <input type="file" class="form-control" />
+      <form class="d-flex align-items-center gap-2" (submit)="onSubmitSubir($event)">
+        <input type="file" class="form-control w-auto" />
+        <button type="submit" class="btn btn-primary px-4 d-flex align-items-center gap-2"><span class="material-symbols-outlined " >create_new_folder</span> Subir Documento </button>
       </form>
-      <button type="submit" class="btn btn-primary ms-4">Subir Documento</button>
     </div>
 
 
