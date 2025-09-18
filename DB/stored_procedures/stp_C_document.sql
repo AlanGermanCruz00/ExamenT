@@ -14,26 +14,22 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Volcando estructura para tabla prueba.tbl_animals
-CREATE TABLE IF NOT EXISTS `tbl_animals` (
-  `id_animal` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `race` varchar(100) DEFAULT NULL,
-  `size` varchar(100) DEFAULT NULL,
-  `color` varchar(100) DEFAULT NULL,
-  `yearborn` year(4) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `created_by` int(11) DEFAULT NULL,
-  `id_status` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id_animal`) USING BTREE,
-  KEY `FK_tbl_animals_id_user` (`created_by`) USING BTREE,
-  KEY `FK_tbl_animals_id_status` (`id_status`),
-  CONSTRAINT `FK_tbl_animals_created_by` FOREIGN KEY (`created_by`) REFERENCES `tbl_users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_tbl_animals_id_status` FOREIGN KEY (`id_status`) REFERENCES `tbl_status` (`id_status`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+-- Volcando estructura para procedimiento prueba.stp_C_document
+DELIMITER //
+CREATE PROCEDURE `stp_C_document`(
+   IN pname VARCHAR(100), 
+   IN pstatus VARCHAR(100), 
+   IN ptype VARCHAR(100),  
+   IN ppath VARCHAR(100)
+)
+BEGIN
+   INSERT INTO tbl_documents (name, status_, type_, path_, create_at)
+   VALUES (pname, pstatus, ptype, ppath, NOW());
 
--- La exportación de datos fue deseleccionada.
+   -- Devuelve el ID recién insertado
+   SELECT LAST_INSERT_ID() AS id;
+END//
+DELIMITER ;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

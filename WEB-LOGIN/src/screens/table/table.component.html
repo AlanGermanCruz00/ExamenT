@@ -37,7 +37,7 @@
           <th>{{dictionaryUtils.labels.size}}</th>
           <th>{{dictionaryUtils.labels.color}}</th>
           <th>{{dictionaryUtils.labels.yearborn}}</th>
-          <th>{{dictionaryUtils.labels.year}}</th>
+          <th>{{dictionaryUtils.labels.age}}</th>
           <th>{{dictionaryUtils.labels.create_at}}</th>
           <th>Editar</th>
           <th>Borrar</th>
@@ -52,8 +52,8 @@
           <td class="text-tabla">{{ row.size }}</td>
           <td class="text-tabla">{{ row.color }}</td>
           <td class="text-tabla">{{ row.yearborn }}</td>
-          <td class="text-tabla">{{ row.year }}</td>
-          <td>{{ row.create_at | date:'dd/MM/yyyy \n HH:mm:ss' }}</td>
+          <td class="text-tabla">{{ row.age }}</td>
+          <td>{{ row.created_at | date:'dd/MM/yyyy' }}</td>
           <td>
             <button class="btn d-flex align-items-center gap-2 btn btn-success" type="button"
               (click)="onSubmitModels('update' , row)">

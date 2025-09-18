@@ -12,7 +12,7 @@ class UserController {
         const descriptionIn = "user[signIn]";
         const { email, password } = req.body;
 
-            const userResult = await dataBaseService.pool?.query("CALL stp_sing_in(?,?)", [email, password]);
+            const userResult = await dataBaseService.pool?.query("CALL stp_U_user(?,?)", [email, password]);
             const user = userResult ? userResult[0][0] : null;
 
             if (!user) {return res.status(401).json();}

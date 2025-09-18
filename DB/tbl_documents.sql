@@ -14,24 +14,17 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Volcando estructura para tabla prueba.tbl_animals
-CREATE TABLE IF NOT EXISTS `tbl_animals` (
-  `id_animal` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `race` varchar(100) DEFAULT NULL,
-  `size` varchar(100) DEFAULT NULL,
-  `color` varchar(100) DEFAULT NULL,
-  `yearborn` year(4) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `created_by` int(11) DEFAULT NULL,
-  `id_status` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id_animal`) USING BTREE,
-  KEY `FK_tbl_animals_id_user` (`created_by`) USING BTREE,
-  KEY `FK_tbl_animals_id_status` (`id_status`),
-  CONSTRAINT `FK_tbl_animals_created_by` FOREIGN KEY (`created_by`) REFERENCES `tbl_users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_tbl_animals_id_status` FOREIGN KEY (`id_status`) REFERENCES `tbl_status` (`id_status`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+-- Volcando estructura para tabla prueba.tbl_documents
+CREATE TABLE IF NOT EXISTS `tbl_documents` (
+  `id_doc` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `status_` varchar(50) DEFAULT NULL,
+  `type_` varchar(100) DEFAULT NULL,
+  `path_` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT curtime(),
+  PRIMARY KEY (`id_doc`) USING BTREE,
+  UNIQUE KEY `unic_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
 

@@ -8,7 +8,7 @@ export default {
     size: 'Tamaño',
     color: 'Color',
     yearborn: 'Año de Nacido',
-    year: 'Años',
+    age: 'Edad',
     create_at: 'Fecha',
     Select: 'Seleccionar',
     SelectP: 'Pequeño',

@@ -49,7 +49,7 @@ export class TableComponent implements OnInit {
 
 
   onSubmitConsultar(): void {
-    this.addService.showAnimals().then((res) => {
+    this.addService.showAnimals().then((res) => { 
       this.tableData = Array.isArray(res.response) ? res.response : [res.response];
       if (this.showDocumentToastOnce) {
         this.showBootstrapToast(dictionaryUtils.messages.animalsShow, 'success');
