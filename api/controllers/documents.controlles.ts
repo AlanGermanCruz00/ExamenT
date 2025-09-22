@@ -24,7 +24,7 @@ class ControllerDocuments {
         const { id } = req.params;
         dataBaseService.pool?.query('CALL stp_D_documents(?)', [id]).then(() => {
             res.json(utils.response(descriptionD, { id, deleted: true }, false));
-        }).catch((err) => { res.status(500).json(utils.response(descriptionD, err, true)); });
+        }).catch((err) => {res.status(500).json(utils.response(descriptionD, err, true));});
 
     }
 
