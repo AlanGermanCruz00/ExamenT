@@ -17,13 +17,13 @@
 -- Volcando estructura para procedimiento prueba.stp_C_document
 DELIMITER //
 CREATE PROCEDURE `stp_C_document`(
-   IN pname VARCHAR(100), 
-   IN pstatus VARCHAR(100), 
-   IN ptype VARCHAR(100),  
-   IN ppath VARCHAR(100)
+	IN `pname` VARCHAR(100),
+	IN `pstatus` VARCHAR(100),
+	IN `ptype` VARCHAR(100),
+	IN `ppath` VARCHAR(100)
 )
 BEGIN
-   INSERT INTO tbl_documents (name, status_, type_, path_, create_at)
+   INSERT INTO tbl_documents (name, status_, type_, path_, created_at)
    VALUES (pname, pstatus, ptype, ppath, NOW());
 
    -- Devuelve el ID recién insertado

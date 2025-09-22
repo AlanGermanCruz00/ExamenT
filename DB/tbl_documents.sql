@@ -22,9 +22,8 @@ CREATE TABLE IF NOT EXISTS `tbl_documents` (
   `type_` varchar(100) DEFAULT NULL,
   `path_` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT curtime(),
-  PRIMARY KEY (`id_doc`) USING BTREE,
-  UNIQUE KEY `unic_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  PRIMARY KEY (`id_doc`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
 

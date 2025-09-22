@@ -43,7 +43,7 @@
           <td class="text-tabla">{{ doc.status_}}</td>
           <td class="text-tabla">{{ doc.type_}}</td>
           <td class="text-tabla">{{ doc.path_}}</td>
-          <td>{{ doc.create_at | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+          <td>{{ doc.created_at | date:'dd/MM/yyyy HH:mm:ss' }}</td>
           <td>
             <button class="btn d-flex align-items-center gap-2 btn-danger" type="button"
               (click)="onSubmitDelete(doc.id_doc)">

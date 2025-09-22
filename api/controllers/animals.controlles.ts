@@ -19,9 +19,9 @@ class ControllerAnimal {
 
   public async AddAnimals(req: Request, res: Response) {
     const descriptionC = "animals[create]"
-    const {id, name, race, size, color, yearborn, age } = req.body;
+    const {name, race, size, color, yearborn, age } = req.body;
 
-    dataBaseService.pool?.query('CALL stp_C_animals(?,?,?,?,?,?,?)', [id ,name, race, size, color, yearborn, age]).then((Anims) => {
+    dataBaseService.pool?.query('CALL stp_C_animals(?,?,?,?,?,?)', [name, race, size, color, yearborn, age]).then((Anims) => {
       const idAnimls = Anims[0][0].id
       res.json(utils.response(descriptionC, idAnimls, false))
 
