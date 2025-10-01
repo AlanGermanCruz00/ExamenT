@@ -1,5 +1,5 @@
 export const environment = {
-  production : false,
-  host: 'http://localhost:3000',
+  production: false,
+  hostApi: 'http://192.168.1.111:3000/api',  
   'x-api-key': ''
 };

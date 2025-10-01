@@ -1,31 +1,33 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
- 
-
 
 @Injectable({
   providedIn: 'root'
 })
+export class SigninService {
 
-export class SinginService {
-  constructor(
-    private https: HttpClient,
-  ) { }
+  // ✅ basePath corregido, sin duplicar /api
+  private basePath = environment.hostApi + '/users';
 
-  private basePath = environment.host + '/api/users';
+  constructor(private http: HttpClient) { }
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  singIn(email: string, password: string): Promise<any> {
-    return this.https.post(`${this.basePath}/login`, { email, password }).toPromise().then((res: any) => {
-      if (res?.response?.token) {
-        localStorage.setItem('token', res.response.token); // Token 📁
-      }
-      return res;
-    });
+  signIn(email: string, password: string): Promise<any> {
+    return this.http.post(`${this.basePath}/login`, { email, password }, { withCredentials: true }).toPromise().then((res: any) => {
+        if (res?.response?.token) {
+          localStorage.setItem('token', res.response.token);
+        }
+        return res;
+      })
+
+      .catch(err => {
+        console.error('❌ Error al hacer login:', err);
+        throw err;
+      });
   }
 
   getAuthHeader() {
@@ -33,7 +35,8 @@ export class SinginService {
     return {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`
-      })
+      }),
+      withCredentials: true
     };
   }
 

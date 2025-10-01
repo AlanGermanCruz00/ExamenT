@@ -14,7 +14,7 @@ import { LoginGuard } from './loginGuard';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full' },
-   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+   { path: 'login', component: LoginComponent },
   {
     path: 'animals',
     canActivate: [AlwaysAuthGuard],  //⚡

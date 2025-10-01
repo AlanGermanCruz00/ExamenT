@@ -6,7 +6,7 @@ import { AddAnimalsComponent } from '../add-animals/add-animals.component';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import dictionaryUtils from 'src/utils/dictionary.utils';
-import { SinginService } from '../../services/singin.service';
+import { SigninService } from '../../services/singin.service';
 
 @Component({
   selector: 'app-table',
@@ -30,7 +30,7 @@ export class TableComponent implements OnInit {
     private addService: AddService,
     private router: Router,
     private ngbModal: NgbModal,
-    private singinService: SinginService
+    private singinService: SigninService
 
   ) { }
 

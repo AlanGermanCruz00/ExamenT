@@ -14,7 +14,7 @@
 
 
 
-  <form [formGroup]="loginForm" class="p-4 mt-3">
+  <form [formGroup]="loginForm" class="p-4 mt-3" (ngSubmit)="onSubmitl()">
 
     <h2>Iniciar Sesión</h2>
     <div class="d-flex justify-content-end">
@@ -30,15 +30,11 @@
         formControlName="password" placeholder="Password">
       <button type="button" class="position-absolute top-50 end-0 translate-middle-y me-2 p-1 btn-icon-password"
         (click)="PasswordVisibility()">
-        <span class="material-symbols-outlined d-flex align-items-center justify-content-center gap-2">
-          {{ passwordVisible ? 'visibility_off' : 'visibility' }}
-        </span>
-      </button>
+        👁️‍🗨️{{ passwordVisible ? 'visibility_off' : 'visibility' }} </button>
     </div>
 
     <br> <button class="btn btn-primary d-flex align-items-center justify-content-center gap-2 mx-auto" type="submit"
-      (click)="onSubmitl()" [disabled]="loginForm.invalid">{{dictionaryUtils.actions.access}}<span
-        class="material-symbols-outlined">login</span></button>
+      [disabled]="loginForm.invalid">{{dictionaryUtils.actions.access}} ➡️</button>
 
   </form>
 

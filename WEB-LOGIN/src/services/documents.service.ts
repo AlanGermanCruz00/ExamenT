@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { SinginService } from './singin.service';
+import { SigninService } from './singin.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,9 +10,9 @@ import { SinginService } from './singin.service';
 
 export class DocumentsService {
 
-    constructor(private https: HttpClient, private singinService: SinginService) { }
+    constructor(private https: HttpClient, private singinService: SigninService) { }
 
-    private basePath = environment.host + '/api/documents';
+    private basePath = environment.hostApi + '/documents';
 
 
     showDocuments(): Promise<any> {

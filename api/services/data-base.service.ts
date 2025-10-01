@@ -1,4 +1,4 @@
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.dev';
 import mysql, { Pool } from 'promise-mysql';
 import dictionaryUtils from '../dictionary.utils';
 

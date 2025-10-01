@@ -17,7 +17,7 @@
     <div class="d-flex justify-content-end">
       <form class="d-flex align-items-center gap-2" (submit)="onSubmitSubir($event)">
         <input type="file" class="form-control w-auto" />
-        <button type="submit" class="btn btn-primary px-4 d-flex align-items-center gap-2"><span class="material-symbols-outlined " >create_new_folder</span> Subir Documento </button>
+        <button type="submit" class="btn btn-primary px-4 d-flex align-items-center gap-2">🛄Subir Documento </button>
       </form>
     </div>
 
@@ -47,12 +47,12 @@
           <td>
             <button class="btn d-flex align-items-center gap-2 btn-danger" type="button"
               (click)="onSubmitDelete(doc.id_doc)">
-              <span class="material-symbols-outlined">delete_forever</span>
+              ☠️
             </button>
           </td>
-          <td><a *ngIf="doc.path_" [href]="'http://localhost:3000' + doc.path_" target="_blank"
+          <td><a *ngIf="doc.path_" [href]="'http://192.168.1.110:3000' + doc.path_" target="_blank"
               class="btn btn-outline-primary btn-sm align-items-center gap-1">
-              <span class="material-symbols-outlined">file_open</span>
+              📎
             </a>
           </td>
         </tr>

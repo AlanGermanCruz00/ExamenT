@@ -25,7 +25,9 @@ class Api {
         this.app.set('port', 3000);
 
         this.app.use(cors({
-            origin: "http://localhost:4200",
+            origin: [
+                "http://192.168.1.111:4200",
+                "http://192.168.1.111"],
             credentials: true
         }));
 
@@ -34,16 +36,29 @@ class Api {
     }
 
     routes(): void {
-        // this.app.use("/test", testRoutes);
-        // this.app.use("/acceso", testUsuario);
+        // Rutas de la API
+        this.app.get('/api', (req, res) => {
+            res.send('✅ Base "API" Correctamente ');
+        });
+
+
         this.app.use("/api/users", userRoute);
         this.app.use("/api/animals", animalsRoutes);
-        this.app.use("/api/documents", documentsRoutes)
+        this.app.use("/api/documents", documentsRoutes);
 
+        // Ruta raíz del servidor (opcional)
+        this.app.get('/', (req, res) => {
+            res.send('✅ API funcionando correctamente');
+        });
     }
 
-    start(): void {this.app.listen(this.app.get('port'), () => {
-            console.log('✅ Server on port', this.app.get('port'));});
+
+
+    start(): void {
+
+        this.app.listen(3000, '0.0.0.0', () => {
+            console.log('✅ Server');
+        });
 
         dataBaseService.createConnections();
     }
@@ -51,3 +66,4 @@ class Api {
 
 const api = new Api();
 api.start();
+

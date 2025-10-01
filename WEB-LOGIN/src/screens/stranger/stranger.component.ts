@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DocumentsService } from 'src/services/documents.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import dictionaryUtils from 'src/utils/dictionary.utils';
-import { SinginService } from '../../services/singin.service';
+import { SigninService } from '../../services/singin.service';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class StrangerComponent implements OnInit {
     private documentsService: DocumentsService,
     private router: Router,
     private ngbModal: NgbModal,
-    private singinService: SinginService
+    private singinService: SigninService
 
   ) { }
 
