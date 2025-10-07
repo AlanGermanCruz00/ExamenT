@@ -8,10 +8,10 @@ export const environment = {
     cert: certificate
   },
   database: {
-    host: '192.168.1.175',  
+    host: '192.168.1.177',  
     user: 'root',
     password: 'root',
     database: 'prueba'
   },
-  hostApi: 'http://192.168.1.111:3000/api' 
+  hostApi: 'http://192.168.1.180:3000/api' 
 };

@@ -12,13 +12,21 @@ class UserController {
         const descriptionIn = "user[signIn]";
         const { email, password } = req.body;
 
-            const userResult = await dataBaseService.pool?.query("CALL stp_U_user(?,?)", [email, password]);
+        try {const userResult = await dataBaseService.pool?.query("CALL stp_U_user(?, ?)",[email, password]);
+
             const user = userResult ? userResult[0][0] : null;
 
-            if (!user) {return res.status(401).json();}
+            if (!user) {
+                return res.status(401).json();
+            }
+
           
-            const token = jwt.sign({ id: user.id_user, email: user.email }, SECRET_KEY, { expiresIn: "1d" });
+            const token = jwt.sign({ id: user.id_user, email: user.email }, SECRET_KEY,{ expiresIn: "1d" });
             return res.json(utils.response(descriptionIn, { ...user, token }, false));
+        } catch (error) {
+            console.error("Error en login:", error);
+            return res.status(500).json();
+        }
     }
 }
 

@@ -26,8 +26,8 @@ class Api {
 
         this.app.use(cors({
             origin: [
-                "http://192.168.1.111:4200",
-                "http://192.168.1.111"],
+                "http://192.168.1.180:4200",
+                "http://192.168.1.180"],
             credentials: true
         }));
 
