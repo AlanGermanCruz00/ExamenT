@@ -26,8 +26,8 @@ class Api {
 
         this.app.use(cors({
             origin: [
-                "http://192.168.1.180:4200",
-                "http://192.168.1.180"],
+                "http://localhost:4200",
+                "http://localhost"],
             credentials: true
         }));
 
@@ -58,7 +58,7 @@ class Api {
 
         this.app.listen(3000, '0.0.0.0', () => {
             console.log('✅ Server');
-        });
+        }); 
 
         dataBaseService.createConnections();
     }

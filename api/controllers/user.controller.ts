@@ -17,7 +17,7 @@ class UserController {
             const user = userResult ? userResult[0][0] : null;
 
             if (!user) {
-                return res.status(401).json();
+                return res.status(401).json(utils.response(descriptionIn, "Usuario no encontrado", true));
             }
 
           
