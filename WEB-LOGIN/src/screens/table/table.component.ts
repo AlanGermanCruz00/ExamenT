@@ -6,6 +6,10 @@ import { AddAnimalsComponent } from '../add-animals/add-animals.component';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import dictionaryUtils from 'src/utils/dictionary.utils';
+import { SigninService } from '../../services/singin.service';
+import DataTable from 'datatables.net';
+import 'datatables.net-bs5';
+
 
 @Component({
   selector: 'app-table',
@@ -14,63 +18,101 @@ import dictionaryUtils from 'src/utils/dictionary.utils';
 
 export class TableComponent implements OnInit {
   tableData: any[] = [];
+  loading: boolean = false;
 
   showToast = false;
   toastMessage = '';
   toastType: 'success' | 'danger' = 'success';
   dictionaryUtils = dictionaryUtils
+  private showDocumentToastOnce = true;
+
 
   deleteId = new FormControl('', [Validators.required]);
 
-  constructor(private addService: AddService,
+  constructor(
+    private addService: AddService,
     private router: Router,
-    private ngbModal: NgbModal
+    private ngbModal: NgbModal,
+    private singinService: SigninService
+
   ) { }
 
   ngOnInit(): void { }
 
-  onSubmitConsultar(): void {
-      this.showBootstrapToast(dictionaryUtils.messages.animalsShow, 'success');
-    this.addService.showAnimals().then((res) => {
-      this.tableData = Array.isArray(res.response) ? res.response : [res.response];
-    }).catch(err => {
-       this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsShow, 'danger')
-    });
+  private handleAuthError(err: any) {
+    if (err.status === 401) {
+      this.singinService.logout();
+      console.log('ERROR DE TOKEN')
+      this.router.navigate(['/login']);
+      return true;
+    }
+    return false;
   }
 
 
-  onSubmitDelete(id: number): void {
-    console.log(id)
-   this.showBootstrapToast(dictionaryUtils.messages.animalsDelete, 'success');
 
+  onSubmitConsultar(): void {
+    this.addService.showAnimals().then((res) => { 
+      this.tableData = Array.isArray(res.response) ? res.response : [res.response];
+      if (this.showDocumentToastOnce) {
+        this.showBootstrapToast(dictionaryUtils.messages.animalsShow, 'success');
+        this.showDocumentToastOnce = false;
+      }
+    }).catch(err => {
+      if (!this.handleAuthError(err)) {
+        this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsShow, 'danger');
+      }
+    });
+  }
+
+  onSubmitDelete(id: number): void {
     this.addService.deleteAnimal(id).then((res) => {
       this.tableData = this.tableData.filter(row => row.id_animal !== id);
+      this.showBootstrapToast(dictionaryUtils.messages.animalsDelete || 'Mascota eliminada', 'success');
     }).catch(err => {
-       this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsDelete , 'danger');
+      if (!this.handleAuthError(err)) {
+        this.showBootstrapToast(dictionaryUtils.messages.invalidAnimalsDelete || 'Error al eliminar mascota', 'danger');
+      }
     });
   }
 
   onSubmitModels(actionFrom: 'create' | 'update', row?: any) {
-    const animlsFrom = this.ngbModal.open(AddAnimalsComponent, { size: 'lg', centered: true, backdrop: 'static', keyboard: false });
-    if (actionFrom === 'create') {
-      animlsFrom.componentInstance.actionType = 'create';
+    this.onSubmitConsultar();
+    const animalsForm = this.ngbModal.open(AddAnimalsComponent, {
+      size: 'lg',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
 
-    } else {
-      animlsFrom.componentInstance.actionType = 'update'; // console.log("Id A Actualizar: ", row?.id_animal);
-      animlsFrom.componentInstance.animalId = row.id_animal;
-      animlsFrom.componentInstance.AnimalsForm.patchValue(row);
-    }
-
-    animlsFrom.result.then((res) => {
-      if (res?.success) {
-        this.onSubmitConsultar();
-         this.showBootstrapToast(dictionaryUtils.messages.animalsAdd , 'success');
-      } else if (res?.updated) {
-        this.onSubmitConsultar();
-        this.showBootstrapToast(dictionaryUtils.messages.animalsUpdate, 'success')
-      }
     });
 
+    if (actionFrom === 'create') {
+      animalsForm.componentInstance.actionType = 'create';
+    } else {
+      animalsForm.componentInstance.actionType = 'update';
+      animalsForm.componentInstance.animalId = row.id_animal;
+      animalsForm.componentInstance.AnimalsForm.patchValue(row);
+    }
+
+    animalsForm.result.then((res) => {
+      if (res?.success) {
+        this.onSubmitConsultar();
+        this.showBootstrapToast(dictionaryUtils.messages.animalsAdd || 'Mascota agregada', 'success');
+      } else if (res?.updated) {
+        this.onSubmitConsultar();
+        this.showBootstrapToast(dictionaryUtils.messages.animalsUpdate || 'Mascota actualizada', 'success');
+      }
+    }).catch(() => { });
+  }
+
+  onScrollContainer(event: any): void {
+    const div = event.target;
+    const scrollPosition = div.scrollTop + div.clientHeight;
+    const threshold = div.scrollHeight - 100;
+
+    if (scrollPosition >= threshold && !this.loading) {
+      this.onSubmitConsultar();
+    }
   }
 
   showBootstrapToast(message: string, type: 'success' | 'danger') {

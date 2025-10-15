@@ -8,7 +8,7 @@ export default {
     size: 'Tamaño',
     color: 'Color',
     yearborn: 'Año de Nacido',
-    year: 'Años',
+    age: 'Edad',
     create_at: 'Fecha',
     Select: 'Seleccionar',
     SelectP: 'Pequeño',
@@ -17,6 +17,10 @@ export default {
     invalidEmail: 'Correo inválido',
     email: 'Correo',
     password: 'Contraseña',
+    status: 'Estado',
+    path: 'Ruta',
+    type: 'Tipo',
+
 
     animals: 'Tabla de Mascotas 🐕‍🦺',
     consume: 'Lista de Pokemos 🐦‍🔥',
@@ -43,9 +47,10 @@ export default {
   messages: {
 
     obligatoryField: 'Campo obligatorio',
-    invalidEmail: 'Correo inválido',
+    invalidEmail: 'Correo inválido o Contraseña Incorrecta',
     theFieldCannotBeEmpty: 'El campo no puede estar vacío',
     invalidPassword: 'Contraseña Incorrecta',
+    successLogin: 'Usuario Correcto',
     invalidUser: 'Usuario no encontrado',
     invalidServe: 'Error del Servidor',
     invalidFrom: 'Formulario Incompleto',
@@ -58,6 +63,14 @@ export default {
     invalidAnimalsUpdate: 'Error al Actualizar',
     animalsDelete: 'Mascota Eliminada',
     invalidAnimalsDelete: 'Mascota No Eliminada',
+
+    documentShow: 'Tabla de Documentos',
+    invalidDoumentShow: 'Error al Consultar Tabla de Documentos',
+    documentDelete: 'Documento Eliminado',
+    invalidDocumentDelete: 'Documento No Eliminada',
+    documentoUpdate: 'Archivo subido correctamente',
+   invalidDocumentUpdate: 'Error al subir archivo',
+   invalidDocumentAdd: 'Ya existe un documento con el nombre Cambia el nombre antes de subirlo.',
 
   },
 
