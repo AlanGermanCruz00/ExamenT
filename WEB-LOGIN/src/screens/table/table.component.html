@@ -12,9 +12,9 @@
 </div>
 
 <div class="container mt-4">
-  <h2 class="text-center mb-4">Tabla de Mascotas 🐕‍🦺</h2><br>
+  <h2>{{dictionaryUtils.labels.animals}}</h2><br>
 
-  <div class="d-flex justify-content-center gap-3 mt-3">
+  <div class="d-flex justify-content-center gap-3 mt-2">
     <button class="btn btn-primary d-flex align-items-center gap-2" type="submit" (click)="onSubmitConsultar()">
       Consultar <span class="material-symbols-outlined">table_edit</span>
     </button>
@@ -25,49 +25,51 @@
 
   </div>
 
-  <br><br>
-  <table class="table table-hover text-center" *ngIf="tableData.length > 0">
-    <thead class="table-dark">
-      <tr>
-        <th>ID</th>
-        <th>{{dictionaryUtils.labels.name}}</th>
-        <th>{{dictionaryUtils.labels.race}}</th>
-        <th>{{dictionaryUtils.labels.size}}</th>
-        <th>{{dictionaryUtils.labels.color}}</th>
-        <th>{{dictionaryUtils.labels.yearborn}}</th>
-        <th>{{dictionaryUtils.labels.year}}</th>
-        <th>{{dictionaryUtils.labels.create_at}}</th>
-        <th>Editar</th>
-        <th>Borrar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of tableData let i = index">
-        <td class="text-tabla">{{ i + 1 }}</td>
-        <!-- <td class="text-tabla">{{ row.id_animal }}</td> -->
-        <td class="text-tabla">{{ row.name }}</td>
-        <td class="text-tabla">{{ row.race }}</td>
-        <td class="text-tabla">{{ row.size }}</td>
-        <td class="text-tabla">{{ row.color }}</td>
-        <td class="text-tabla">{{ row.yearborn }}</td>
-        <td class="text-tabla">{{ row.year }}</td>
-        <td>{{ row.create_at | date:'dd/MM/yyyy \n HH:mm:ss' }}</td>
-        <td>
-          <button class="btn d-flex align-items-center gap-2 btn btn-success" type="button"
-            (click)="onSubmitModels('update' , row)">
-            <span class="material-symbols-outlined">edit_note</span>
-          </button>
-        </td>
-        <td>
-          <button class="btn d-flex align-items-center gap-2 btn-danger" type="button"
-            (click)="onSubmitDelete(row.id_animal)">
-            <span class="material-symbols-outlined">delete_forever</span>
-          </button>
+  <br>
 
-        </td>
+  <div class="table-scroll mt-5" (scroll)="onScrollContainer($event)">
+    <table class="table table-hover text-center" *ngIf="tableData.length > 0">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>{{dictionaryUtils.labels.name}}</th>
+          <th>{{dictionaryUtils.labels.race}}</th>
+          <th>{{dictionaryUtils.labels.size}}</th>
+          <th>{{dictionaryUtils.labels.color}}</th>
+          <th>{{dictionaryUtils.labels.yearborn}}</th>
+          <th>{{dictionaryUtils.labels.age}}</th>
+          <th>{{dictionaryUtils.labels.create_at}}</th>
+          <th>Editar</th>
+          <th>Borrar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of tableData let i = index">
+          <td class="text-tabla">{{ i + 1 }}</td>
+          <!-- <td class="text-tabla">{{ row.id_animal }}</td> -->
+          <td class="text-tabla">{{ row.name }}</td>
+          <td class="text-tabla">{{ row.race }}</td>
+          <td class="text-tabla">{{ row.size }}</td>
+          <td class="text-tabla">{{ row.color }}</td>
+          <td class="text-tabla">{{ row.yearborn }}</td>
+          <td class="text-tabla">{{ row.age }}</td>
+          <td>{{ row.created_at | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <button class="btn d-flex align-items-center gap-2 btn btn-success" type="button"
+              (click)="onSubmitModels('update' , row)">
+              <span class="material-symbols-outlined">edit_note</span>
+            </button>
+          </td>
+          <td>
+            <button class="btn d-flex align-items-center gap-2 btn-danger" type="button"
+              (click)="onSubmitDelete(row.id_animal)">
+              <span class="material-symbols-outlined">delete_forever</span>
+            </button>
 
-      </tr>
-    </tbody>
-  </table>
+          </td>
 
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

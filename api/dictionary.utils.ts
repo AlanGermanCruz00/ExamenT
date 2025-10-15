@@ -6,4 +6,18 @@ export default {
     mistake: 'Error',
     succesConexionDB: 'Conexion exitosa hacia la',
   },
+
+    messages: {
+
+    obligatoryField: 'Campo obligatorio',
+    invalidEmail: 'Correo inválido',
+    theFieldCannotBeEmpty: 'El campo no puede estar vacío',
+    invalidPassword: 'Contraseña Incorrecta',
+    successLogin:'Usuario Correcto',
+    invalidUser: 'Usuario no encontrado o contraseña Incorrecta',
+    invalidServe: 'Error del Servidor',
+    invalidFrom: 'Formulario Incompleto',
+  
+  
+  }
 }

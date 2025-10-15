@@ -9,9 +9,8 @@ class ControllerAnimal {
   public async showAnimals(req: Request, res: Response) {
     const descriptionS = "animals[show]";
     try {
-      const rows: any = await dataBaseService.pool?.query(`
-              SELECT id_animal, name, race, size, color, yearborn, year, create_at FROM tbl_animals `);
-      res.json(utils.response(descriptionS, rows, false));
+      const rows: any = await dataBaseService.pool?.query('CALL stp_GC_animals()');
+      res.json(utils.response(descriptionS, rows[0], false));
     } catch (err) {
       res.status(500).json(utils.response(descriptionS, err, true));
     }
@@ -20,9 +19,9 @@ class ControllerAnimal {
 
   public async AddAnimals(req: Request, res: Response) {
     const descriptionC = "animals[create]"
-    const { name, race, size, color, yearborn, year } = req.body;
+    const {name, race, size, color, yearborn, age } = req.body;
 
-    dataBaseService.pool?.query("CALL stp_S_animal(?,?,?,?,?,?)", [name, race, size, color, yearborn, year]).then((Anims) => {
+    dataBaseService.pool?.query('CALL stp_C_animals(?,?,?,?,?,?)', [name, race, size, color, yearborn, age]).then((Anims) => {
       const idAnimls = Anims[0][0].id
       res.json(utils.response(descriptionC, idAnimls, false))
 
@@ -36,10 +35,7 @@ class ControllerAnimal {
     const { id } = req.params;
 
     try {
-      dataBaseService.pool?.query(
-        "DELETE FROM tbl_animals WHERE id_animal = ?", [id]
-
-      );
+      dataBaseService.pool?.query('CALL stp_D_animals(?)', [id]);
 
       res.json(utils.response(descriptionD, id, false));
     } catch (err) {
@@ -49,18 +45,15 @@ class ControllerAnimal {
   }
 
   public async updateAnimals(req: Request, res: Response) {
-    const descriptionU = "animal[update]";
-    const { id } = req.params;
-    const { name, race, size, color, yearborn, year } = req.body;
+    const description = "animal[update]";
+    const {id} = req.params
+    const {name, race, size, color, yearborn, age } = req.body; 
     try {
       const result: any = await dataBaseService.pool?.query(
-        `UPDATE tbl_animals 
-       SET name = ?, race = ?, size = ?, color = ?, yearborn = ?,  \`year\` = ?, create_at = NOW() 
-       WHERE id_animal = ?`,
-        [name, race, size, color, yearborn, year, id]             //PORQUE YEAR '' 
-      );
+        'CALL stp_U_animal (?,?,?,?,?,?,?)', [id, name, race, size, color, yearborn, age] );
+      res.json(utils.response(description, result[0], false));
     } catch (err) {
-       res.status(500).json(utils.response(descriptionU, err, true));
+       res.status(500).json(utils.response(description, err, true));
     }
   }
 

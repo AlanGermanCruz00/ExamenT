@@ -14,26 +14,24 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Volcando estructura para tabla prueba.tbl_animals
-CREATE TABLE IF NOT EXISTS `tbl_animals` (
-  `id_animal` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `race` varchar(100) DEFAULT NULL,
-  `size` varchar(100) DEFAULT NULL,
-  `color` varchar(100) DEFAULT NULL,
-  `yearborn` year(4) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `created_by` int(11) DEFAULT NULL,
-  `id_status` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id_animal`) USING BTREE,
-  KEY `FK_tbl_animals_id_user` (`created_by`) USING BTREE,
-  KEY `FK_tbl_animals_id_status` (`id_status`),
-  CONSTRAINT `FK_tbl_animals_created_by` FOREIGN KEY (`created_by`) REFERENCES `tbl_users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_tbl_animals_id_status` FOREIGN KEY (`id_status`) REFERENCES `tbl_status` (`id_status`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+-- Eliminando tabla temporal y crear estructura final de VIEW
+DROP TABLE IF EXISTS `v_animals`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `v_animals` AS SELECT 
+    a.id_animal,
+    a.name,
+    a.race,
+    a.size,
+    a.color,
+    a.yearborn,
+    a.age,
+    a.created_at,
+    s.status AS status
 
--- La exportación de datos fue deseleccionada.
+FROM tbl_animals a,
+  tbl_status s
+WHERE s.id_status = 1 
+AND a.id_status = s.id_status 
+;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
