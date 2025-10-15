@@ -5,40 +5,42 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+export class SigninService {
 
-export class SinginService {
-  constructor(
-    private https: HttpClient,
-  ) { }
+  // ✅ basePath corregido, sin duplicar /api
+  private basePath = environment.hostApi + '/users';
 
-  private basePath = environment.host + '/api/users';
+  constructor(private http: HttpClient) { }
 
   isAuthenticated(): boolean {
-    return (this.getValueLocalStorage('token') !== null) ? true : false;
+    return !!localStorage.getItem('token');
   }
 
-  singIn(email: string, password: string): Promise<any> {
-    const body = { email, password };
-
-    return new Promise((resolve, reject) => {
-      this.https.post(`${this.basePath}/login`, body).subscribe((response: any) => {
-        console.log("✅ Respuesta API:", response);
-
-        if (response.token) {
-          localStorage.setItem('token', JSON.stringify(response.token));
+  signIn(email: string, password: string): Promise<any> {
+    return this.http.post(`${this.basePath}/login`, { email, password }, { withCredentials: true }).toPromise().then((res: any) => {
+        if (res?.response?.token) {
+          localStorage.setItem('token', res.response.token);
         }
+        return res;
+      })
 
-        resolve(response);
-      },
-        (error: any) => {
-
-        }
-      );
-    });
+      .catch(err => {
+        console.error('❌ Error al hacer login:', err);
+        throw err;
+      });
   }
 
-  getValueLocalStorage(identifier: string) {
-    return JSON.parse(localStorage.getItem(identifier)!);
+  getAuthHeader() {
+    const token = localStorage.getItem('token');
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      }),
+      withCredentials: true
+    };
   }
 
+  logout() {
+    localStorage.removeItem('token');
+  }
 }

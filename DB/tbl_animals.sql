@@ -1,18 +1,42 @@
- 
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         12.0.2-MariaDB - mariadb.org binary distribution
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             12.11.0.7065
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- Volcando estructura para tabla prueba.tbl_animals
-DROP TABLE IF EXISTS `tbl_animals`;
 CREATE TABLE IF NOT EXISTS `tbl_animals` (
   `id_animal` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `race` varchar(100) DEFAULT NULL,
   `size` varchar(100) DEFAULT NULL,
   `color` varchar(100) DEFAULT NULL,
-  `yearNacido` year(4) DEFAULT NULL,
-  `year` int(11) DEFAULT NULL,
-  `create_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id_animal`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  `yearborn` year(4) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `created_by` int(11) DEFAULT NULL,
+  `id_status` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id_animal`) USING BTREE,
+  KEY `FK_tbl_animals_id_user` (`created_by`) USING BTREE,
+  KEY `FK_tbl_animals_id_status` (`id_status`),
+  CONSTRAINT `FK_tbl_animals_created_by` FOREIGN KEY (`created_by`) REFERENCES `tbl_users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_tbl_animals_id_status` FOREIGN KEY (`id_status`) REFERENCES `tbl_status` (`id_status`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
- 
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
