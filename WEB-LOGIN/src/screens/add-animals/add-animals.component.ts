@@ -38,7 +38,7 @@ export class AddAnimalsComponent {
   sizeFormControl = new FormControl('', [Validators.required])
   colorFormControl = new FormControl('', [Validators.required])
   yearbornFormControl = new FormControl('', [Validators.required])
-  yearFormControl = new FormControl('', [Validators.required])
+  ageFormControl = new FormControl('', [Validators.required])
 
 
   AnimalsForm = new FormGroup({
@@ -47,7 +47,7 @@ export class AddAnimalsComponent {
     size: this.sizeFormControl,
     color: this.colorFormControl,
     yearborn: this.yearbornFormControl,
-    year: this.yearFormControl
+    age: this.ageFormControl
 
   })
   ngAfterViewInit() {
@@ -59,7 +59,7 @@ export class AddAnimalsComponent {
 
     if (this.AnimalsForm.valid) {
       this.addService.AddAnimals(this.nameFormControl.value!, this.raceFormControl.value!, this.sizeFormControl.value!,
-        this.colorFormControl.value!, this.yearbornFormControl.value!, this.yearFormControl.value!).then((res: any) => {
+        this.colorFormControl.value!, this.yearbornFormControl.value!, this.ageFormControl.value!).then((res: any) => {
           this.activeModal.close({ success: true, id: res.response }); //
           this.activeModal.close({ id: res.response });
         }).catch(() => { });
@@ -72,9 +72,9 @@ export class AddAnimalsComponent {
   onSubmitVolver() { this.activeModal.close(); }
 
   onSubmitActualizar() {
-    if (this.AnimalsForm.valid) {
-      const update = this.AnimalsForm.value;
-      this.addService.updateAnimals(this.animalId, update).then(res => {
+    if (this.AnimalsForm.valid) {  
+      const update = this.AnimalsForm.value;   
+      this.addService.updateAnimals(this.animalId, update).then(res => { console.log("UPDATE" , res)
       }).catch(err => {
         this.activeModal.close({ updated: false, error: true });
       });

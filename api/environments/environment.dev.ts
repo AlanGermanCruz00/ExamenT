@@ -2,16 +2,16 @@ const privateKey = '';
 const certificate = '';
 
 export const environment = {
-    production: false,
-    credentials: {
-        key: privateKey,
-        cert: certificate
-    },
-    database: {
-    host: '127.0.0.1',
+  production: false,
+  credentials: {
+    key: privateKey,
+    cert: certificate
+  },
+  database: {
+    host: '192.168.1.175',  
     user: 'root',
     password: 'root',
     database: 'prueba'
-    },
-    hostApi: 'http://localhost:3000',
+  },
+  hostApi: 'http://192.168.1.111:3000/api' 
 };
