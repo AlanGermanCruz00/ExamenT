@@ -1,22 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { CanActivate, Router } from '@angular/router';
+import { SinginService } from 'src/services/singin.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlwaysAuthGuard {
+export class AlwaysAuthGuard implements CanActivate {
 
-  constructor(
-    private router: Router,
+  constructor(private singinService: SinginService, private router: Router) { }
 
-  ) { }
+  canActivate(): boolean {
+    const token = localStorage.getItem('token');
 
-  canActivate() {
+    if (!token) {
+      this.router.navigate(['/login']);
+      return false;
+    }
 
+    try {
+      const decoded: any = jwtDecode(token);
+      const now = Math.floor(Date.now() / 1000);
 
+      if (decoded.exp && decoded.exp < now) {
+        this.singinService.logout();
+        this.router.navigate(['/login']);
+        return false;
+      }
 
-
+      return true;
+    } catch (err) {
+      this.singinService.logout();
+      this.router.navigate(['/login']);
+      return false;
+    }
   }
-
 }

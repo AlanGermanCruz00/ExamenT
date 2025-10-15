@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+ 
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,31 +16,28 @@ export class SinginService {
   private basePath = environment.host + '/api/users';
 
   isAuthenticated(): boolean {
-    return (this.getValueLocalStorage('token') !== null) ? true : false;
+    return !!localStorage.getItem('token');
   }
 
   singIn(email: string, password: string): Promise<any> {
-    const body = { email, password };
-
-    return new Promise((resolve, reject) => {
-      this.https.post(`${this.basePath}/login`, body).subscribe((response: any) => {
-        console.log("✅ Respuesta API:", response);
-
-        if (response.token) {
-          localStorage.setItem('token', JSON.stringify(response.token));
-        }
-
-        resolve(response);
-      },
-        (error: any) => {
-
-        }
-      );
+    return this.https.post(`${this.basePath}/login`, { email, password }).toPromise().then((res: any) => {
+      if (res?.response?.token) {
+        localStorage.setItem('token', res.response.token); // Token 📁
+      }
+      return res;
     });
   }
 
-  getValueLocalStorage(identifier: string) {
-    return JSON.parse(localStorage.getItem(identifier)!);
+  getAuthHeader() {
+    const token = localStorage.getItem('token');
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
   }
 
+  logout() {
+    localStorage.removeItem('token');
+  }
 }
