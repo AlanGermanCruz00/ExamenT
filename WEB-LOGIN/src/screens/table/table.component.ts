@@ -7,6 +7,9 @@ import { AddAnimalsComponent } from '../add-animals/add-animals.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import dictionaryUtils from 'src/utils/dictionary.utils';
 import { SigninService } from '../../services/singin.service';
+import DataTable from 'datatables.net';
+import 'datatables.net-bs5';
+
 
 @Component({
   selector: 'app-table',
